@@ -5,6 +5,7 @@ class DefaultController extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('CustomerModel');
+		$this->load->model('ProductModel');
 		$this->load->helper('form');
 		$this->load->helper('html');
 		$this->load->helper('url');
@@ -15,16 +16,16 @@ class DefaultController extends CI_Controller {
 	public function index(){	
 		//check if the user is already logged in
 		if($this->session->userdata('logged_in')){
-			$this->load->view('index');	
+			$data['product_info']=$this->ProductModel->get_all_products();
+			$this->load->view('index',$data);
 			echo 'You are logged in!';
-			//the user is already logged in -> display the index page with secret content
 			//get user type
 
 			//run appropriate controller
 		}
 		else{
-			//user isn't logged in -> display login form
-			$this->load->view('index');	
+			$data['product_info']=$this->ProductModel->get_all_products();
+			$this->load->view('index',$data);
 			echo 'You are not logged in';
 		}
 			
