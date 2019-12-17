@@ -12,9 +12,14 @@ class ProductController extends CI_Controller {
 		$this->load->library('session');
 	}
 
-	public function viewProduct($produceCode)
-    {	$data['view_data']= $this->ProductModel->drilldown($produceCode);
+	public function viewProduct($produceCode){
+		$data['view_data']= $this->ProductModel->drilldown($produceCode);
 		$this->load->view('ProductView', $data);
+    }
+
+    public function findProducts($keyword){
+    	$data['view_data']= $this->ProductModel->findProducts($keyword);
+    	$this->load->view('ProductSearchView', $data);
     }
 
 	// public function listProducts() 

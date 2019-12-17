@@ -43,25 +43,27 @@
 				      </li>
 			      <?php }else{ ?>
 			      	<li class="nav-item">
-				        	<a class="nav-link" href="<?php echo site_url('DefaultController/Logout')?>">Log Out</a>
+				        	<a class="nav-link" href="<?php echo site_url('DefaultController/Logout')?>">Log Out </a>
 				      </li>
-			      <li class="nav-item dropdown">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          Dropdown
-			        </a>
-			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href="#">Action</a>
-			          <a class="dropdown-item" href="#">Another action</a>
-			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="#">Something else here</a>
-			        </div>
-			      </li>
+				      <?php if($this->session->userdata['logged_in']['userType'] == 2){  ?>
+					      <li class="nav-item dropdown">
+					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					          Admin Management
+					        </a>
+					        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					          <a class="dropdown-item" href="#">Manage Users</a>
+					          <a class="dropdown-item" href="#">Manage Products</a>
+					          <div class="dropdown-divider"></div>
+					          <a class="dropdown-item" href="#">Something else here</a>
+					        </div>
+					      </li>
+			  			<?php } //end if that checks for user type?> 
 			  <?php }//end else ?>
 			  <!-- End of navbar depending on login status -->
 
 			      
 			    </ul>
-			    <form class="form-inline my-2 my-lg-0">
+			    <form class="form-inline my-2 my-lg-0" action="">
 			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			    </form>

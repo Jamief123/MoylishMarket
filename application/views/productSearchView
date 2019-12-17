@@ -8,12 +8,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="main">
 	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
 </div>
-
-	<br><br>
-	<h1 class="main">Our Products</h1>
-
 	<div class="row">
-		<?php foreach($product_info as $row){?>	
+		<?php foreach($view_data as $row){?>	
 	    <div class="col-md-4">
 	      <div class="thumbnail">
 	        <a href="<?php echo site_url('ProductController/viewProduct/'.$row->produceCode);?>" >

@@ -24,6 +24,14 @@ class ProductModel extends CI_Model
 		$query = $this->db->get();
 		return $query->result();
 	}
+
+	function findProducts($keyword){
+		$this->db->select("*"); 
+		$this->db->from('products');
+		$this->db->where('description', $keyword)
+		$query = $this->db->get();
+		return $query->result();
+	}
 	
 	// public function deleteTitleModel($ISBN)
 	// {	$this->db->where('ISBN', $ISBN);

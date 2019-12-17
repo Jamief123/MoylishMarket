@@ -4,7 +4,7 @@ class DefaultController extends CI_Controller {
 	
 	public function __construct(){
 		parent::__construct();
-		$this->load->model('CustomerModel');
+		$this->load->model('UserModel');
 		$this->load->model('ProductModel');
 		$this->load->helper('form');
 		$this->load->helper('html');
@@ -18,15 +18,12 @@ class DefaultController extends CI_Controller {
 		if($this->session->userdata('logged_in')){
 			$data['product_info']=$this->ProductModel->get_all_products();
 			$this->load->view('index',$data);
-			echo 'You are logged in!';
-			//get user type
-
-			//run appropriate controller
+			//echo 'You are logged in!';
 		}
 		else{
 			$data['product_info']=$this->ProductModel->get_all_products();
 			$this->load->view('index',$data);
-			echo 'You are not logged in';
+			//echo 'You are not logged in';
 		}
 			
 	}
@@ -51,7 +48,6 @@ class DefaultController extends CI_Controller {
 
 	public function InsertCustomer(){
 		if ($this->input->post('submitInsert')){
-
 		
 			// //set validation rules
 			// $this->form_validation->set_rules('authorID', 'Author ID', 'required');
@@ -79,7 +75,7 @@ class DefaultController extends CI_Controller {
 			// }
 
 			//check if insert is successful
-			if ($this->CustomerModel->insertCustomerModel($aCustomer)) {
+			if ($this->UserModel->insertUserModel($aCustomer)) {
 				echo "The insert has been successful";
 			}
 			else {
@@ -131,16 +127,19 @@ class DefaultController extends CI_Controller {
 		//only get here if form validation succeeded. now validate the users details against the DB
 		$email = $this->input->post('email');
 	   //query the DB
-	   $result = $this->CustomerModel->login($email, $password);
+	   $result = $this->UserModel->login($email, $password);
 	   //if a valid user write their id & name to session data
 		if($result) {
 			$sess_array = array();
 			foreach($result as $row) {
 				$sess_array = array(
 					'customerNumber' => $row->customerNumber,
-					'email' => $row->email
+					'email' => $row->email,
+					'userType' =>$row->userType
+
 				);
 				$this->session->set_userdata('logged_in', $sess_array);				
+				//$this->session->set_userdata('logged_in', $sess_array);
 			}
 			//return true -> we have a valid user
 			return true;
