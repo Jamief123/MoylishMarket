@@ -17,9 +17,9 @@ class ProductController extends CI_Controller {
 		$this->load->view('ProductView', $data);
     }
 
-    public function findProducts($keyword){
-    	$data['view_data']= $this->ProductModel->findProducts($keyword);
-    	$this->load->view('ProductSearchView', $data);
+    public function findProducts(){
+    	$data['view_data']= $this->ProductModel->findProducts($this->input->get('productSearch'));
+    	$this->load->view('productSearchView', $data);
     }
 
 	// public function listProducts() 

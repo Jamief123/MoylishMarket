@@ -28,7 +28,7 @@ class ProductModel extends CI_Model
 	function findProducts($keyword){
 		$this->db->select("*"); 
 		$this->db->from('products');
-		$this->db->where('description', $keyword)
+		$this->db->like('description', $keyword, 'both');
 		$query = $this->db->get();
 		return $query->result();
 	}

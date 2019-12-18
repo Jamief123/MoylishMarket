@@ -45,7 +45,7 @@
 			      	<li class="nav-item">
 				        	<a class="nav-link" href="<?php echo site_url('DefaultController/Logout')?>">Log Out </a>
 				      </li>
-				      <?php if($this->session->userdata['logged_in']['userType'] == 2){  ?>
+				      <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){  ?>
 					      <li class="nav-item dropdown">
 					        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					          Admin Management
@@ -63,8 +63,8 @@
 
 			      
 			    </ul>
-			    <form class="form-inline my-2 my-lg-0" action="">
-			      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			    <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo site_url('ProductController/findProducts/');?>">
+			      <input class="form-control mr-sm-2" type="search" name="productSearch" placeholder="Search" aria-label="Search">
 			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			    </form>
 			  </div>
