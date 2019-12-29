@@ -13,25 +13,22 @@
 <title>Moylish Market</title>
 <link href="<?php echo $cssbase . "style.css"?>" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="<?php echo $jsbase."common.js"?>"></script>
 
 </head>
 
 <body>
-	<div class="container">
+	
 		<header>
-
-			<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-			  <a class="navbar-brand" href="#">Navbar</a>
+			<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+			  <a class="navbar-brand" href="<?php echo site_url('DefaultController/Index')?>">Home</a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
-			      <li class="nav-item active">
-			        <a class="nav-link" href="<?php echo site_url('DefaultController/Index')?>">Home <span class="sr-only">(current)</span></a>
-			      </li>
 
 			      <!-- Different navbar depending on user login status -->
 			      <?php if(!$this->session->userdata('logged_in')){ ?>
@@ -70,3 +67,4 @@
 			  </div>
 			</nav>
 		</header>
+	<div class="container">

@@ -10,6 +10,7 @@ class ProductController extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+		$this->load->library('pagination');
 	}
 
 	public function viewProduct($produceCode){

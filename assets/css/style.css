@@ -1,0 +1,27 @@
+.productDetails{
+	border: 1px #ddd solid;
+	border-radius: 4px;
+}
+.price{
+	font-weight: bold;
+}
+.etaDelivery{
+	font-weight: bold;
+}
+.productDetails .btn{
+	margin-bottom: 5px;
+}
+
+.container{
+	margin-top: 25px;
+}
+
+.productView{
+	border: 1px #ddd solid;
+	margin-bottom: 5px;
+}
+.productView img{
+	margin-bottom: 5px;
+	border-radius: 4px;
+	max-width: 100%;
+}

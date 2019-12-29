@@ -11,17 +11,26 @@ class DefaultController extends CI_Controller {
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+		$this->load->library('pagination');
 	}
 
 	public function index(){	
 		//check if the user is already logged in
 		if($this->session->userdata('logged_in')){
-			$data['product_info']=$this->ProductModel->get_all_products();
+			$config['base_url'] = site_url('DefaultController/index/');
+			$config['total_rows'] = $this->ProductModel->record_count();
+			$config['per_page'] = 20;
+			$this->pagination->initialize($config);
+			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(10));
 			$this->load->view('index',$data);
 			//echo 'You are logged in!';
 		}
 		else{
-			$data['product_info']=$this->ProductModel->get_all_products();
+			$config['base_url'] = site_url('DefaultController/index/');
+			$config['total_rows'] = $this->ProductModel->record_count();
+			$config['per_page'] = 20;
+			$this->pagination->initialize($config);
+			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(10));
 			$this->load->view('index',$data);
 			//echo 'You are not logged in';
 		}

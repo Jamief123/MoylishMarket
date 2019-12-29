@@ -18,8 +18,10 @@ class ProductModel extends CI_Model
 	// 	}
 	// }
 
-	function get_all_products() 
-	{	$this->db->select("*"); 
+	function get_all_products($limit,$offset) 
+	{
+		$this->db->limit($limit,$offset);
+		$this->db->select("*"); 
 		$this->db->from('products');
 		$query = $this->db->get();
 		return $query->result();
@@ -49,6 +51,10 @@ class ProductModel extends CI_Model
 		$this->db->where('produceCode',$produceCode);
 		$query = $this->db->get();
 		return $query->result();
+    }
+
+    function record_count(){
+    	return $this->db->count_all('products');
     }
 
 }
