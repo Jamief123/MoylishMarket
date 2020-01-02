@@ -57,5 +57,15 @@ class ProductModel extends CI_Model
     	return $this->db->count_all('products');
     }
 
+    function insertProductModel($product)
+	{	$this->db->insert('products',$product);
+		if ($this->db->affected_rows() ==1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 }
 ?>

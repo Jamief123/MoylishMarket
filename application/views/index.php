@@ -9,8 +9,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
 </div>
 
-	<br><br>
-	<h1 class="main">Our Products</h1>
+	<h1 class="main">Our Products</h1> 
+
+	<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
+		<a href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a>
+	<?php }?>
+	
 
 	<div class="row">
 		<?php foreach($product_info as $row){?>	
