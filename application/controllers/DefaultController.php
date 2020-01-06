@@ -21,7 +21,7 @@ class DefaultController extends CI_Controller {
 			$config['total_rows'] = $this->ProductModel->record_count();
 			$config['per_page'] = 20;
 			$this->pagination->initialize($config);
-			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(10));
+			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
 			$this->load->view('index',$data);
 			//echo 'You are logged in!';
 		}
@@ -30,7 +30,7 @@ class DefaultController extends CI_Controller {
 			$config['total_rows'] = $this->ProductModel->record_count();
 			$config['per_page'] = 20;
 			$this->pagination->initialize($config);
-			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(10));
+			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
 			$this->load->view('index',$data);
 			//echo 'You are not logged in';
 		}
@@ -123,7 +123,7 @@ class DefaultController extends CI_Controller {
 
 			if($this->form_validation->run() == false) {
 				//validation failed -> display login form
-				$this->load->view('login_view');
+				$this->load->view('Login');
 			} else { 
 				//validation passed (inc a call to check_database() via a callback) -> display secret content
 				redirect('DefaultController/Index');

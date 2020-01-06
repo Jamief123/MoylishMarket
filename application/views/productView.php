@@ -41,8 +41,8 @@
 				</select>
 			 </p>
 
-			 <button type="button" class="btn btn-warning "><i class="fa fa-shopping-basket"></i>Add To Basket</button>
-			 <button type="button" class="btn btn-warning"><i class="fa fa-list"></i>Add To WishList</button>
+			 <a class="btn btn-warning "><i class="fa fa-shopping-basket"></i>Add To Basket</a>
+			 <a class="btn btn-warning"><i class="fa fa-list"></i>Add To WishList</a>
 
 			
 		</div>

@@ -19,9 +19,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	            
 	          </div>
 	        </a>
-	        <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
-        			<p><button type="button" class="btn btn-primary">Delete</button>
-    					<button type="button" class="btn btn-primary">Edit</button></p>
+	        <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){	?>
+        			<p>
+        				<a  class="btn btn-primary">Delete</a>
+					   <a  class="btn btn-primary">Edit</a>
+					</p>
 	            			
 	            <?php }?>
 	      </div>

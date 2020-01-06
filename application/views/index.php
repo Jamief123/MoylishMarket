@@ -9,35 +9,40 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
 </div>
 
-	<h1 class="main">Our Products</h1> 
+<h1 class="main">Our Products</h1> 
 
-	<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
-		<a href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a>
-	<?php }?>
+<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
+	<p><a class ="btn btn-warning" href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a></p>
+<?php }?>
 	
 
-	<div class="row">
-		<?php foreach($product_info as $row){?>	
+<div class="row">
+	<?php foreach($product_info as $row){ ?>	
 	    <div class="col-md-3">
-	      <div class="thumbnail">
+	        <div class="thumbnail">
 	        <a href="<?php echo site_url('ProductController/viewProduct/'.$row->produceCode);?>" >
 	          <img src="<?php echo $img_base.'/products/thumbs/'.$row->photo;?>" class ="img-thumbnail" alt="Lights" style="width:100%">
 	          <div class="caption">
 	            <p><?php echo $row->description;?></p>
-	            
 	          </div>
 	        </a>
-	        <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
-        			<p><button type="button" class="btn btn-primary">Delete</button>
-    					<button type="button" class="btn btn-primary">Edit</button></p>
+	        	<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
+	    			<p>
+	    				<a onclick="return checkDelete()" class="btn btn-primary" href="<?php echo site_url('ProductController/discontinueProduct/'.$row->produceCode);?>">Discontinue</a>
+						<a class="btn btn-primary" href="<?php echo site_url('ProductController/editProduct/'.$row->produceCode);?>">Edit</a>
+					</p>
 	            			
 	            <?php }?>
-	      </div>
-	    </div>
- 	 <?php }//end foreach?> 
- 	 </div>
+	  		</div>
+		</div>
+ 	<?php }//end foreach ?> 
+ </div>
+ 
+ <div class="pagination">
+ 	<?php echo $this->pagination->create_links(); ?>
+ </div>
 
-	<?php echo $this->pagination->create_links(); ?>
+
 <?php
 $this->load->view('footer'); 
 ?>

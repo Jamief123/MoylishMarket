@@ -14,16 +14,27 @@ class ProductController extends CI_Controller {
 	}
 
 	public function viewProduct($produceCode){
-		$data['view_data']= $this->ProductModel->drilldown($produceCode);
-		$this->load->view('ProductView', $data);
+		//function to check if product is discontinued.
+		//if it is discontinued do not display product.
+		if($this->ProductModel->isProductDiscontinued($produceCode)[0]['discontinued'] == 0){
+			$data['view_data']= $this->ProductModel->drilldown($produceCode);
+			$this->load->view('ProductView', $data);
+		}else{
+			$data['message'] = "Sorry that product is discontinued";
+			$this->load->view('displayMessageView',$data);
+		}
+		
     }
 
-    public function findProducts(){
+    public function findProducts()
+    {
+
     	$data['view_data']= $this->ProductModel->findProducts($this->input->get('productSearch'));
     	$this->load->view('productSearchView', $data);
     }
 
-    public function handleInsert(){
+    public function handleInsert()
+    {
 		if ($this->input->post('submitInsert')){
 
 			$pathToFile = $this->uploadAndResizeFile();
@@ -89,8 +100,9 @@ class ProductController extends CI_Controller {
 		}
 	}
 
-	function uploadAndResizeFile()
-	{	//set config options for thumbnail creation
+	public function uploadAndResizeFile()
+	{	
+		//set config options for thumbnail creation
 		$config['upload_path']='./assets/images/products/full/';
 		$config['allowed_types']='gif|jpg|png';
 		$config['max_size']='10000';
@@ -121,8 +133,9 @@ class ProductController extends CI_Controller {
 		return $path;
 	}
 	
-	function createThumbnail($path)
-	{	//set config options for thumbnail creation
+	public function createThumbnail($path)
+	{	
+		//set config options for thumbnail creation
 		$config['source_image']=$path;
 		$config['new_image']='./assets/images/products/thumbs/';
 		$config['maintain_ratio']='FALSE';
@@ -140,12 +153,76 @@ class ProductController extends CI_Controller {
 	}
 
 	public function listProducts() 
-	{	$data['product_info']=$this->ProductModel->get_all_products();
+	{	
+		$data['product_info']=$this->ProductModel->get_all_products();
 		$this->load->view('index',$data);
 	}
 
 
+	public function deleteProduct($produceCode){
+		$deletedRows = $this->ProductModel->deleteProductModel($produceCode);
+		if($deletedRows > 0)
+			$data['message'] = "$deletedRows product has been deleted";
+		else
+			$data['message'] = "There was an error deleting the product with a produce code of $produceCode";
+		$this->load->view('displayMessageView',$data);
+	}
+
+	public function discontinueProduct($produceCode){
+		if($this->ProductModel->discontinueProductModel($produceCode))
+			redirect('DefaultController/Index');
+		else
+			$data['message'] = "There was a problem updating the record";
+		$this->load->view('displayMessageView',$data);
+	}
+
+	public function editProduct($produceCode)
+    {	$data['edit_data']= $this->ProductModel->drilldown($produceCode);
+		$this->load->view('updateProductView', $data);
+    }
+
+
+	public function updateProduct($produceCode)
+    {	$pathToFile = $this->uploadAndResizeFile();
+		$this->createThumbnail($pathToFile);
+
+		//set validation rules
+		$this->form_validation->set_rules('produceCode', 'produceCode', 'required');
+		$this->form_validation->set_rules('description', 'description', 'required');
+		$this->form_validation->set_rules('productLine', 'productLine', 'required');	
+		$this->form_validation->set_rules('supplier', 'supplier', 'required');
+		$this->form_validation->set_rules('quantityInStock', 'quantityInStock', 'required');
+		$this->form_validation->set_rules('bulkBuyPrice', 'bulkBuyPrice', 'required');
+		$this->form_validation->set_rules('bulkSalePrice', 'bulkSalePrice', 'required');
+		$this->form_validation->set_rules('discontinued', 'discontinued', 'required');
 	
+		//get values from post
+		$produceCode = $this->input->post('produceCode');
+		$aProduct['description'] = $this->input->post('description');
+		$aProduct['productLine'] = $this->input->post('productLine');
+		$aProduct['supplier'] = $this->input->post('supplier');
+		$aProduct['quantityInStock'] = $this->input->post('quantityInStock');
+		$aProduct['bulkBuyPrice'] = $this->input->post('bulkBuyPrice');
+		$aProduct['bulkSalePrice'] = $this->input->post('bulkSalePrice');
+		$aProduct['discontinued'] = $this->input->post('discontinued');
+		$aProduct['photo'] = $_FILES['userfile']['name'];
+
+		//check if the form has passed validation
+		if (!$this->form_validation->run()){
+			//validation has failed, load the form again
+			$this->load->view('updateProductView', $aProduct);
+			return;
+		}
+
+		
+		//check if update is successful
+		if ($this->ProductModel->updateProductModel($aProduct, $produceCode)) {
+			redirect('DefaultController/index');
+		}
+		else {
+			$data['message']="Uh oh ... problem on update";
+		}
+    }
 
 }
 

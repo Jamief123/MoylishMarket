@@ -7,43 +7,35 @@ class ProductModel extends CI_Model
     {	parent::__construct();
 		$this->load->database();
     }
-	
-	// function insertTitleModel($title)
-	// {	$this->db->insert('titles',$title);
-	// 	if ($this->db->affected_rows() ==1) {
-	// 		return true;
-	// 	}
-	// 	else {
-	// 		return false;
-	// 	}
-	// }
 
-	function get_all_products($limit,$offset) 
-	{
+	public function get_all_products($limit,$offset) 
+	{ //gets all products that are not discontinued
 		$this->db->limit($limit,$offset);
 		$this->db->select("*"); 
 		$this->db->from('products');
+		$this->db->where('discontinued',0);
 		$query = $this->db->get();
 		return $query->result();
 	}
 
-	function findProducts($keyword){
+	public function findProducts($keyword){
 		$this->db->select("*"); 
 		$this->db->from('products');
 		$this->db->like('description', $keyword, 'both');
+		$this->db->where('discontinued',0);
 		$query = $this->db->get();
 		return $query->result();
 	}
 	
-	// public function deleteTitleModel($ISBN)
-	// {	$this->db->where('ISBN', $ISBN);
-	// 	return $this->db->delete('titles');
- //    }
+	public function deleteProductModel($produceCode)
+	{	$this->db->where('produceCode', $produceCode);
+		return $this->db->delete('products');
+    }
 
-	// function updateTitleModel($author,$ISBN)
-	// {	$this->db->where('ISBN', $ISBN);
-	// 	return $this->db->update('titles', $author);
-	// }
+	function updateProductModel($product,$produceCode)
+	{	$this->db->where('produceCode', $produceCode);
+		return $this->db->update('products', $product);
+	}
 
 	public function drilldown($produceCode)
 	{	$this->db->select("*"); 
@@ -53,11 +45,11 @@ class ProductModel extends CI_Model
 		return $query->result();
     }
 
-    function record_count(){
+    public function record_count(){
     	return $this->db->count_all('products');
     }
 
-    function insertProductModel($product)
+    public function insertProductModel($product)
 	{	$this->db->insert('products',$product);
 		if ($this->db->affected_rows() ==1) {
 			return true;
@@ -65,6 +57,20 @@ class ProductModel extends CI_Model
 		else {
 			return false;
 		}
+	}
+
+	public function discontinueProductModel($produceCode){
+		$this->db->set('discontinued', 1);
+		$this->db->where('produceCode',$produceCode);
+		return $this->db->update('products');
+	}
+
+	public function isProductDiscontinued($produceCode){
+		$this->db->select("discontinued");
+		$this->db->from('products');
+		$this->db->where('produceCode',$produceCode);
+		$query = $this->db->get();
+		return $query->result_array();
 	}
 
 }
