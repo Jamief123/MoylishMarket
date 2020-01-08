@@ -12,6 +12,10 @@
 	margin-bottom: 5px;
 }
 
+.img-thumbnail{
+	box-shadow: 3px 3px 5px 6px #ccc;
+}
+
 .container{
 	margin-top: 25px;
 }
@@ -26,7 +30,18 @@
 	max-width: 100%;
 }
 
-.pagination a{
+.pagination{
+	width: 50%;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 20px; 
+}
+
+.pagination a, strong{
 	border: 1px solid black;
+	border-radius: 4px;
 	text-decoration: none;
+	background: #ddd;
+	padding: 0 10px 0 10px;
+	margin:  0 5px 0 5px;
 }

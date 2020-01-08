@@ -23,8 +23,8 @@ class ProductController extends CI_Controller {
 			$data['message'] = "Sorry that product is discontinued";
 			$this->load->view('displayMessageView',$data);
 		}
-		
     }
+
 
     public function findProducts()
     {
@@ -223,6 +223,105 @@ class ProductController extends CI_Controller {
 			$data['message']="Uh oh ... problem on update";
 		}
     }
+
+    public function addToBasket(){
+    	//var_dump($this->input->post('produceCode'));
+    	//var_dump($this->input->post('quantity'));
+    	
+
+    	$produceCode = $this->input->post('produceCode');
+    	$quantity = $this->input->post('quantity');
+
+    	/*We need to make sure the data received is a number*/
+	    if($quantity>=1){
+	        /*To prevent tricky data we need to round numbers to prevent any undesirable stuff here*/
+	        $quanity = ceil($quantity);
+	    }else{
+	        $quantity = 1;
+	    }
+
+	    $price = $this->ProductModel->getPrice($produceCode);
+
+	    /*Retreive the cart from the session*/
+    	$userCart = $this->session->userdata('cart_products');
+
+    	/*Validate if the user has a cart*/
+	    if($userCart!=null){
+
+	      /*We check if the user added the item before*/
+	      $findItem = $this->findItem($userCart, $produceCode);
+
+	      /*If findItem is not equals 0*/
+	      if($findItem!=0){
+
+	          /*We declare the variable of the index to remove*/
+	          $cartIndex = $findItem["arrayIndex"];
+
+	          /*We get the qty of the item*/
+	          $qtyItem = $userCart[$cartIndex]["quantity"];
+
+	          /*We create the new sum of the */
+	          $quantity = $quantity + $qtyItem;
+	          /*We establish the new qty for that item*/
+	          $userCart[$cartIndex]["quantity"] = $quantity;
+	      }
+	      /*We need to replace the older cart with the new one*/
+	      $this->session->set_userdata('cart_products', $userCart);
+
+	    }else{
+	        $userCart = array();
+	        $item = array(
+	            'produceCode' => $produceCode, 
+	            'quantity' => $quantity,
+	            'bulkSalePrice'  => $price,
+	        );
+
+	        /*In case the user does not have a cart we create one*/
+	        $userCart[] = $item;
+	        $this->session->set_userdata('cart_products', $userCart);
+	    }
+	
+
+    }
+
+
+    public function findItem($cart, $produceCode){
+
+	   /*We iterate over the cart*/
+	   foreach($cart as $key=>$item){
+
+	      if($item["produceCode"]==$produceCode){
+
+	        /*In case this is found we return an array with the index of the array and qty*/
+	        return array("arrayIndex"=>$key, "quantity"=>$item["quantity"]);
+
+	      }
+	   }
+
+	   /*In case there is no item found in the cart*/
+	   return 0;
+	}
+
+
+	// /*Function to find the cart when user types a search criteria*/
+	// public function findByName($cart, $userInput){
+
+	//     $itemsFound = array();
+	//    /*We iterate over the cart*/
+	//    foreach($cart as $key=>$item){
+
+	//         /*Check if any id in the cart match via user Input*/
+	//         if (strpos($item["name"], $userInput) !== false) {
+	//             $itemsFound[] =  $item;
+	//         }            
+	//    }
+	//     /*If is not empty the items found we return the array of items*/
+	//     if(!empty($itemsFound)){
+	//         return $itemsFound;
+	//     }
+	//    /*In case there is no item found in the cart*/
+	//    return 0;
+	// }    
 
 }
 

@@ -73,5 +73,13 @@ class ProductModel extends CI_Model
 		return $query->result_array();
 	}
 
+	public function getPrice($produceCode){
+		$this->db->select("bulkSalePrice");
+		$this->db->from('products');
+		$this->db->where('produceCode',$produceCode);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
 }
 ?>

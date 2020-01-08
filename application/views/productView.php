@@ -29,17 +29,14 @@
 				 	echo date('S', strtotime(' +1 day')); ?>
 			 	</span> if you order before 6pm today!</p>
 
-			 <p>
-			 	Quantity: 
-			 	<select name="quantity"  id="quantity" tabindex="0" >
-	                <option value="1" selected="">1
-	                </option>
-	                <option value="2">2
-	                </option>
-	                <option value="3">3
-	                </option>
-				</select>
-			 </p>
+			 
+			
+			<form method= "POST" name="basketAdd" action="<?php echo site_url('ProductController/addToBasket');?>">
+				Quantity: 
+				<p><input type="number" name ="quantity"></p>
+				<input type="hidden" name="produceCode" value="<?php echo $row->produceCode ?>">
+				<button class="btn btn-warning" type="submit" name="submitBasketAdd"><i class="fa fa-shopping-basket"></i>Add To Basket</button>
+			</form>
 
 			 <a class="btn btn-warning "><i class="fa fa-shopping-basket"></i>Add To Basket</a>
 			 <a class="btn btn-warning"><i class="fa fa-list"></i>Add To WishList</a>
