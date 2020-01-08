@@ -11,6 +11,7 @@ class ProductController extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->load->library('pagination');
+		$this->load->library('cart');
 	}
 
 	public function viewProduct($produceCode){
@@ -177,13 +178,15 @@ class ProductController extends CI_Controller {
 	}
 
 	public function editProduct($produceCode)
-    {	$data['edit_data']= $this->ProductModel->drilldown($produceCode);
+    {	
+    	$data['edit_data']= $this->ProductModel->drilldown($produceCode);
 		$this->load->view('updateProductView', $data);
     }
 
 
 	public function updateProduct($produceCode)
-    {	$pathToFile = $this->uploadAndResizeFile();
+    {	
+    	$pathToFile = $this->uploadAndResizeFile();
 		$this->createThumbnail($pathToFile);
 
 		//set validation rules
@@ -225,12 +228,18 @@ class ProductController extends CI_Controller {
     }
 
     public function addToBasket(){
-    	//var_dump($this->input->post('produceCode'));
-    	//var_dump($this->input->post('quantity'));
+    	// var_dump($this->input->post('produceCode'));
+    	// var_dump($this->input->post('quantity'));
+    	// var_dump($this->input->post('description'));
+
     	
 
     	$produceCode = $this->input->post('produceCode');
     	$quantity = $this->input->post('quantity');
+    	$description = $this->input->post('description');
+
+		$query = $this->ProductModel->getPrice($produceCode);
+		$price = $query[0]['bulkSalePrice'];
 
     	/*We need to make sure the data received is a number*/
 	    if($quantity>=1){
@@ -240,46 +249,15 @@ class ProductController extends CI_Controller {
 	        $quantity = 1;
 	    }
 
-	    $price = $this->ProductModel->getPrice($produceCode);
+	    $item = array(
+	        'id'      => $produceCode,
+	        'qty'     => $quantity,
+	        'price'   => $price,
+	        'name'    => $description
+		);
 
-	    /*Retreive the cart from the session*/
-    	$userCart = $this->session->userdata('cart_products');
-
-    	/*Validate if the user has a cart*/
-	    if($userCart!=null){
-
-	      /*We check if the user added the item before*/
-	      $findItem = $this->findItem($userCart, $produceCode);
-
-	      /*If findItem is not equals 0*/
-	      if($findItem!=0){
-
-	          /*We declare the variable of the index to remove*/
-	          $cartIndex = $findItem["arrayIndex"];
-
-	          /*We get the qty of the item*/
-	          $qtyItem = $userCart[$cartIndex]["quantity"];
-
-	          /*We create the new sum of the */
-	          $quantity = $quantity + $qtyItem;
-	          /*We establish the new qty for that item*/
-	          $userCart[$cartIndex]["quantity"] = $quantity;
-	      }
-	      /*We need to replace the older cart with the new one*/
-	      $this->session->set_userdata('cart_products', $userCart);
-
-	    }else{
-	        $userCart = array();
-	        $item = array(
-	            'produceCode' => $produceCode, 
-	            'quantity' => $quantity,
-	            'bulkSalePrice'  => $price,
-	        );
-
-	        /*In case the user does not have a cart we create one*/
-	        $userCart[] = $item;
-	        $this->session->set_userdata('cart_products', $userCart);
-	    }
+		$this->cart->insert($item);
+	    $this->load->view('basketView');
 	
 
     }

@@ -35,11 +35,11 @@
 				Quantity: 
 				<p><input type="number" name ="quantity"></p>
 				<input type="hidden" name="produceCode" value="<?php echo $row->produceCode ?>">
-				<button class="btn btn-warning" type="submit" name="submitBasketAdd"><i class="fa fa-shopping-basket"></i>Add To Basket</button>
+				<input type="hidden" name="description" value="<?php echo $row->description ?>">
+				<button class="btn btn-warning" type="submit" name="submitBasketAdd"><i class="fa fa-shopping-basket"></i> Add To Basket</button>
 			</form>
 
-			 <a class="btn btn-warning "><i class="fa fa-shopping-basket"></i>Add To Basket</a>
-			 <a class="btn btn-warning"><i class="fa fa-list"></i>Add To WishList</a>
+			 <a class="btn btn-warning"><i class="fa fa-list"></i> Add To WishList</a>
 
 			
 		</div>
