@@ -121,8 +121,8 @@ class ProductController extends CI_Controller {
 		
 		$config['source_image']=$path;
 		$config['maintain_ratio']='FALSE';
-		$config['width']='180';
-		$config['height']='200';
+		$config['width']='345';
+		$config['height']='186';
 
 		$this->load->library('image_lib',$config);
 		if (!$this->image_lib->resize())
