@@ -33,7 +33,7 @@
 			
 			<form method= "POST" name="basketAdd" action="<?php echo site_url('ProductController/addToBasket');?>">
 				Quantity: 
-				<p><input type="number" name ="quantity"></p>
+				<p><input type="number" name ="quantity" value="1"></p>
 				<input type="hidden" name="produceCode" value="<?php echo $row->produceCode ?>">
 				<input type="hidden" name="description" value="<?php echo $row->description ?>">
 				<button class="btn btn-warning" type="submit" name="submitBasketAdd"><i class="fa fa-shopping-basket"></i> Add To Basket</button>

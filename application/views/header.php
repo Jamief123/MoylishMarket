@@ -56,6 +56,9 @@
 					      </li>
 			  			<?php } //end if that checks for user type?> 
 			  <?php }//end else ?>
+					  <li class="nav-item">
+			  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewBasket')?>"><i class="fa fa-shopping-basket"></i> View Basket</a>
+				      </li>
 			  <!-- End of navbar depending on login status -->
 
 			      

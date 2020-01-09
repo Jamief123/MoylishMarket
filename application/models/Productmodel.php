@@ -81,5 +81,21 @@ class ProductModel extends CI_Model
 		return $query->result_array();
 	}
 
+	public function getQuantity($produceCode){
+		$this->db->select("quantityInStock");
+		$this->db->from('products');
+		$this->db->where('produceCode',$produceCode);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function get_all_categories(){
+		$this->db->distinct();
+		$this->db->select("productLine"); 
+		$this->db->from('products');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 }
 ?>

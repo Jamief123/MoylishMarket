@@ -22,8 +22,8 @@ class DefaultController extends CI_Controller {
 			$config['per_page'] = 20;
 			$this->pagination->initialize($config);
 			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
+			$data['category'] = $this->ProductModel->get_all_categories();
 			$this->load->view('index',$data);
-			//echo 'You are logged in!';
 		}
 		else{
 			$config['base_url'] = site_url('DefaultController/index/');
@@ -31,8 +31,8 @@ class DefaultController extends CI_Controller {
 			$config['per_page'] = 20;
 			$this->pagination->initialize($config);
 			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
+			$data['category'] = $this->ProductModel->get_all_categories();
 			$this->load->view('index',$data);
-			//echo 'You are not logged in';
 		}
 			
 	}

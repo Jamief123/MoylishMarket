@@ -228,78 +228,68 @@ class ProductController extends CI_Controller {
     }
 
     public function addToBasket(){
-    	// var_dump($this->input->post('produceCode'));
-    	// var_dump($this->input->post('quantity'));
-    	// var_dump($this->input->post('description'));
-
-    	
-
     	$produceCode = $this->input->post('produceCode');
     	$quantity = $this->input->post('quantity');
     	$description = $this->input->post('description');
-
-		$query = $this->ProductModel->getPrice($produceCode);
-		$price = $query[0]['bulkSalePrice'];
-
-    	/*We need to make sure the data received is a number*/
+		
 	    if($quantity>=1){
-	        /*To prevent tricky data we need to round numbers to prevent any undesirable stuff here*/
 	        $quanity = ceil($quantity);
 	    }else{
 	        $quantity = 1;
 	    }
 
-	    $item = array(
-	        'id'      => $produceCode,
-	        'qty'     => $quantity,
-	        'price'   => $price,
-	        'name'    => $description
-		);
+	    if($this->checkStock($quantity, $produceCode)){
 
-		$this->cart->insert($item);
-	    $this->load->view('basketView');
-	
+    		$query = $this->ProductModel->getPrice($produceCode);
+			$price = $query[0]['bulkSalePrice'];
 
+		    $item = array(
+		        'id'      => $produceCode,
+		        'qty'     => $quantity,
+		        'price'   => $price,
+		        'name'    => $description
+			);
+
+			$this->cart->insert($item);
+		    $this->load->view('basketView');
+    	}else{
+    		$data['message'] = 'Sorry we do not have that many in stock';
+    		$this->load->view('displayMessageView',$data);
+    	}
+
+		
     }
 
+    public function viewBasket(){
+    	$this->load->view('basketView');
+    }
 
-    public function findItem($cart, $produceCode){
+    public function checkStock($quantity, $produceCode){
 
-	   /*We iterate over the cart*/
-	   foreach($cart as $key=>$item){
+    	$query =  $this->ProductModel->getQuantity($produceCode);
+    	$quantityInStock = $query[0]['quantityInStock'];
+    	$quantityInStock;
+    	if($quantity>$quantityInStock){
+    		return false;
+    	}else
+    		return true;
+    }
 
-	      if($item["produceCode"]==$produceCode){
+    function updateBasket(){
+    	$updateItem = array();
 
-	        /*In case this is found we return an array with the index of the array and qty*/
-	        return array("arrayIndex"=>$key, "quantity"=>$item["quantity"]);
+    	foreach( $_POST as $cartItem ) {
+    		$updateItem['rowid'] = $cartItem['rowid'];
+    		$updateItem['qty'] = $cartItem['qty'];
+    		$this->cart->update($updateItem);
+        }
+        $this->load->view('basketView');
 
-	      }
-	   }
+    } 
 
-	   /*In case there is no item found in the cart*/
-	   return 0;
-	}
+    
 
 
-	// /*Function to find the cart when user types a search criteria*/
-	// public function findByName($cart, $userInput){
-
-	//     $itemsFound = array();
-	//    /*We iterate over the cart*/
-	//    foreach($cart as $key=>$item){
-
-	//         /*Check if any id in the cart match via user Input*/
-	//         if (strpos($item["name"], $userInput) !== false) {
-	//             $itemsFound[] =  $item;
-	//         }            
-	//    }
-	//     /*If is not empty the items found we return the array of items*/
-	//     if(!empty($itemsFound)){
-	//         return $itemsFound;
-	//     }
-	//    /*In case there is no item found in the cart*/
-	//    return 0;
-	// }    
 
 }
 

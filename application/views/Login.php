@@ -21,7 +21,7 @@
 		
 		echo "<br><br>";
 		
-		echo form_submit("Login", "Login!"); 
+		echo form_submit("Login", "Login!","class='btn btn-warning'"); 
 	?>
 <?php
 	$this->load->view('footer'); 

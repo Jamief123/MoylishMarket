@@ -8,7 +8,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="main">
 	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
 </div>
-<h1 class="main">Our Products</h1> 
+
+<div id="indexProductHeader">
+	<span id="indexHeader">Our Products</span>
+	<select class="form-control placeholder" id ="categorySort" >
+		<option value="" selected disabled hidden>Category</option>
+		<?php foreach($category as $row){ ?>
+			<option value="" ><?php echo $row->productLine ?></option>
+		<?php }?>
+	</select>
+</div>
+
 
 <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
 	<p><a class ="btn btn-warning" href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a></p>
