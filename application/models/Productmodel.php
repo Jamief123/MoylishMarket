@@ -18,6 +18,17 @@ class ProductModel extends CI_Model
 		return $query->result();
 	}
 
+	public function get_all_products_category($limit,$offset, $category) 
+	{ //gets all products that are not discontinued
+		$this->db->limit($limit,$offset);
+		$this->db->select("*"); 
+		$this->db->from('products');
+		$this->db->where('discontinued',0);
+		$this->db->where('productLine',$category);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function findProducts($keyword){
 		$this->db->select("*"); 
 		$this->db->from('products');

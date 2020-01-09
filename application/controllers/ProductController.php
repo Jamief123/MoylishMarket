@@ -284,9 +284,15 @@ class ProductController extends CI_Controller {
     		$this->cart->update($updateItem);
         }
         $this->load->view('basketView');
-
     } 
 
+    public function category(){
+    	$category = $this->input->get('category');
+
+    	$data['product_info']=$this->ProductModel->get_all_products_category(20,$this->uri->segment(3), $category);
+		$data['category'] = $this->ProductModel->get_all_categories();
+		$this->load->view('index',$data);
+    }
     
 
 

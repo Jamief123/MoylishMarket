@@ -15,6 +15,10 @@
 			<h3><?php echo $row->productLine ?></h3>
 			<hr>
 			<img src="<?php echo $img_base.'products/full/'.$row->photo; ?>" class="img-rounded" alt="<?php echo $row->description ?>">
+			<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
+				<hr>
+				<h3>Supplier: <?php echo $row->supplier ?></h3>
+			<?php }?>
 		</div>
 
 		<div class="col-md-3 productDetails ml-auto mr-3">

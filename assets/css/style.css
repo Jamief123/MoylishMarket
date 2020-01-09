@@ -54,8 +54,25 @@
 #indexProductHeader{
 	width: 100%;
 	display: inline-block;
-	margin-top: 30px;
+}
+#indexProductHeader form{
+	width: 50%;
+	float: right;
+}
+#indexProductHeader a{
+	max-width: 50%;
+	float: left;
+	margin-top: 10px;
 }
 #indexHeader{
 	font-size: 40;
+}
+#categoryApply{
+	float: right;
+	margin-right: 5px;
+}
+
+.productDetails, .productView{
+	border-radius: 4px;
+	box-shadow: 3px 3px 5px 6px #ccc;
 }

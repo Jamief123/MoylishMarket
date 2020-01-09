@@ -10,20 +10,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <div id="indexProductHeader">
-	<span id="indexHeader">Our Products</span>
-	<select class="form-control placeholder" id ="categorySort" >
-		<option value="" selected disabled hidden>Category</option>
-		<?php foreach($category as $row){ ?>
-			<option value="" ><?php echo $row->productLine ?></option>
-		<?php }?>
-	</select>
+	<!-- <span id="indexHeader">Our Products</span> -->
+
+	<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
+		<p><a class ="btn btn-warning" href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a></p>
+	<?php }?>
+	<form action="<?php echo site_url('ProductController/category/');?>" method="get">
+		<select  name ="category" class="form-control placeholder" id ="categorySort" >
+			<option value="" selected disabled hidden>Category</option>
+			<?php foreach($category as $row){ ?>
+				<option value="<?php echo $row->productLine ?>" ><?php echo $row->productLine ?></option>
+			<?php }?>
+		</select>
+		<p><input type="submit" name="submitCategory" value="Apply" class ="btn btn-warning" id="categoryApply" /></p>
+	</form>
 </div>
-
-
-<?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){?>
-	<p><a class ="btn btn-warning" href="<?php echo site_url('ProductController/handleInsert/');?>">Add New Product</a></p>
-<?php }?>
-	
 
 <div class="row">
 	<?php foreach($product_info as $row){ ?>	
