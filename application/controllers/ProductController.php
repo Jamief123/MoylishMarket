@@ -294,7 +294,9 @@ class ProductController extends CI_Controller {
 		$this->load->view('index',$data);
     }
     
-
+    public function checkout(){
+    	
+    }
 
 
 }

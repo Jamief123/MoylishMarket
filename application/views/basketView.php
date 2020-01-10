@@ -58,9 +58,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <p><?php echo form_submit('', 'Update Basket',"class='btn btn-warning'"); ?></p>
 
-
 <a href="<?php echo site_url('ProductController/checkout');?>" button class="btn btn-warning"><i class="fa fa-shopping-basket"></i> Checkout</a>
-
 
 <?php
 	$this->load->view('footer'); 
