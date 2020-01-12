@@ -295,7 +295,7 @@ class ProductController extends CI_Controller {
     }
     
     public function checkout(){
-    	
+    	$this->load->view('checkout');
     }
 
 

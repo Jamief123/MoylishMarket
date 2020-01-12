@@ -12,7 +12,7 @@
       <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
       <!-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> -->
     
-    <div style="width: 30%; margin: auto;">
+    <div class = "formInputs">
 
         <?php echo form_open_multipart('DefaultController/InsertCustomer');?>
             <div class="form-group">
@@ -46,12 +46,12 @@
                 <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <?php
-            echo form_submit('submitInsert', "Submit!");
+            echo form_submit('submitInsert', "Submit!", "class='btn btn-warning form-control'");
 
             echo form_close();
             echo validation_errors();
             ?>
-        <a href="<?php echo site_url('DefaultController/Index')?>">Go Back</a>
+        <a class="btn btn-primary btn-sm" href="<?php echo site_url('DefaultController/Index')?>">Go Back</a>
     </div>
     
 </div>

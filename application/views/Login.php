@@ -6,23 +6,25 @@
 	$base = base_url() . index_page();
 	$img_base = base_url()."assets/images/";
 ?>
-   <h1>Moylish Market Login</h1> 
-<?php echo validation_errors();
-   
-		echo form_open('DefaultController/verify_login'); 
-		
-		echo "Enter Email";
-		echo form_input('email');
-		
-		echo "<br><br>";
-		
-		echo "Enter Password";
-		echo form_password('password');
-		
-		echo "<br><br>";
-		
-		echo form_submit("Login", "Login!","class='btn btn-warning'"); 
-	?>
-<?php
-	$this->load->view('footer'); 
+<div class="jumbotron">
+   <h1 class="display-4" >Log in to Moylish Market</h1> 
+   <div class="formInputs">
+	   	<?php echo validation_errors();
+		   
+				echo form_open('DefaultController/verify_login'); 
+				
+				echo "Enter Email";
+				echo form_input('email','',"class='form-control form-group'");
+				
+				echo "Enter Password";
+				echo form_password('password','',"class='form-control form-group'");
+				
+				echo form_submit("Login", "Login!","class='btn btn-warning form-control form-group'"); 
+			?>
+   </div>
+	
+	<?php
+		$this->load->view('footer'); 
 ?>
+</div>
+

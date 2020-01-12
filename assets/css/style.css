@@ -1,3 +1,8 @@
+.formInputs{
+	width: 30%; 
+	margin: auto;
+}
+
 .productDetails{
 	border: 1px #ddd solid;
 	border-radius: 4px;

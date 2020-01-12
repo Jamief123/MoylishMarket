@@ -52,17 +52,17 @@ class DefaultController extends CI_Controller {
 		//destroy the session
 		$this->session->sess_destroy();
 		//load the login page
-		$this->load->view('Login');
+		$this->index();
 	}
 
 	public function InsertCustomer(){
 		if ($this->input->post('submitInsert')){
 		
 			// //set validation rules
-			// $this->form_validation->set_rules('authorID', 'Author ID', 'required');
-			// $this->form_validation->set_rules('firstName', 'First Name', 'required');
-			// $this->form_validation->set_rules('lastName', 'Last Name', 'required');	
-			// $this->form_validation->set_rules('yearBorn', 'Year Born', 'required');
+			$this->form_validation->set_rules('authorID', 'Author ID', 'required');
+			$this->form_validation->set_rules('firstName', 'First Name', 'required');
+			$this->form_validation->set_rules('lastName', 'Last Name', 'required');	
+			$this->form_validation->set_rules('yearBorn', 'Year Born', 'required');
 
 			//get values from post
 			$aCustomer['customerName'] = $this->input->post('customerName');
@@ -85,14 +85,15 @@ class DefaultController extends CI_Controller {
 
 			//check if insert is successful
 			if ($this->UserModel->insertUserModel($aCustomer)) {
-				echo "The insert has been successful";
+				$this->index();
 			}
 			else {
-				echo "Uh oh ... problem on insert";
+				$data['message'] = "Uh oh ... problem on insert";
+				//load the view to display the message
+				$this->load->view('displayMessageView', $data);
 			}
 			
-			//load the view to display the message
-			//$this->load->view('displayMessageView', $data);
+			
 			
 			return;
 		}
