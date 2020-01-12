@@ -6,31 +6,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$img_base = base_url()."assets/images/";
 ?>
 
-	<table>
-	<tr>
-		<th>QTY</th>
-        <th>Item Description</th>
-        <th >Item Price</th>
-        <th >Sub-Total</th>
-	</tr>
-	<?php foreach ($this->cart->contents() as $items): ?>
-
-		<tr>
-			<td><?php echo $items['qty']; ?></td>
-			<td><?php echo $items['name']; ?></td>
-			<td><?php echo $items['price']; ?></td>
-			<td><?php echo $items['subtotal']; ?></td>
-		</tr>
-
-	<?php endforeach; ?>
-
-	<tr>
-	    <td colspan="2"> </td>
-	    <td ><strong>Total</strong></td>
-	    <td ><?php echo $this->cart->format_number($this->cart->total()); ?></td>
-	</tr>
-</table>
-
 <div class="row">
   <div class="col-75">
     <div class="container">
@@ -65,9 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <label for="fname">Accepted Cards</label>
             <div class="icon-container">
               <i class="fa fa-cc-visa" style="color:navy;"></i>
-              <i class="fa fa-cc-amex" style="color:blue;"></i>
               <i class="fa fa-cc-mastercard" style="color:red;"></i>
-              <i class="fa fa-cc-discover" style="color:orange;"></i>
             </div>
             <label for="cname">Name on Card</label>
             <input type="text" id="cname" name="cardname" placeholder="John More Doe">
@@ -91,19 +64,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <label>
           <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing
         </label>
-        <input type="submit" value="Continue to checkout" class="btn">
+        <input type="submit" value="Continue to checkout" class="btn btn-warning form-group form-control">
       </form>
     </div>
   </div>
   <div class="col-25">
     <div class="container">
-      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b>4</b></span></h4>
-      <p><a href="#">Product 1</a> <span class="price">$15</span></p>
-      <p><a href="#">Product 2</a> <span class="price">$5</span></p>
-      <p><a href="#">Product 3</a> <span class="price">$8</span></p>
-      <p><a href="#">Product 4</a> <span class="price">$2</span></p>
+      <h4>Cart <span class="price" style="color:black"><i class="fa fa-shopping-cart"></i> <b><?php echo count($this->cart->contents()); ?></b></span></h4>
+
+      <?php foreach ($this->cart->contents() as $items): ?>
+      	<p><a href="#"><?php echo $items['name']; ?></a> <span class="price">€<?php echo $items['subtotal']; ?></span></p>
+      <?php endforeach; ?>
       <hr>
-      <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
+      <p>Total <span class="price" style="color:black"><b>€<?php echo $this->cart->format_number($this->cart->total()); ?></b></span></p>
     </div>
   </div>
 </div>
