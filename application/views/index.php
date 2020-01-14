@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$img_base = base_url()."assets/images/";
 ?>
 <div class="main">
-	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
+	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.png"?>" />	
 </div>
 
 <div id="indexProductHeader">
