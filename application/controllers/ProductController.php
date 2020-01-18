@@ -5,6 +5,7 @@ class ProductController extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('ProductModel');
+		$this->load->model('WishListModel');
 		$this->load->helper('form');
 		$this->load->helper('html');
 		$this->load->helper('url');
@@ -264,6 +265,14 @@ class ProductController extends CI_Controller {
     	$this->load->view('basketView');
     }
 
+    public function viewWishlist(){
+    	//get wishlist items from db
+    	$data['view_data'] = $this->WishListModel->get_all_items($_SESSION['logged_in']['customerNumber']);
+    	//load view
+    	$this->load->view('wishlistView',$data);
+    }
+
+
     public function checkStock($quantity, $produceCode){
 
     	$query =  $this->ProductModel->getQuantity($produceCode);
@@ -298,6 +307,12 @@ class ProductController extends CI_Controller {
     	$this->load->view('checkout');
     }
 
-
+    public function addToWishlist(){
+    	$aProduct['customerNumber'] = $_SESSION['logged_in']['customerNumber'];
+    	$aProduct['produceCode'] = $this->input->post('produceCode');
+		$aProduct['description'] = $this->input->post('description');
+		$aProduct['photo'] = $this->input->post('photo');
+    	$this->WishListModel->InsertItem($aProduct);
+    }
 }
 

@@ -42,12 +42,28 @@
 				<input type="hidden" name="description" value="<?php echo $row->description ?>">
 				<button class="btn btn-warning" type="submit" name="submitBasketAdd"><i class="fa fa-shopping-basket"></i> Add To Basket</button>
 			</form>
-
-			 <a class="btn btn-warning"><i class="fa fa-list"></i> Add To WishList</a>
+			
+			 <form method= "POST" name="wishlistAdd" action="<?php echo site_url('ProductController/addToWishlist');?>">
+				<input type="hidden" name="produceCode" value="<?php echo $row->produceCode ?>">
+				<input type="hidden" name="description" value="<?php echo $row->description ?>">
+				<input type="hidden" name="photo" value="<?php echo $row->photo ?>">
+				<button class="btn btn-warning" type="submit" name="submitWishlistAdd"><i class="fa fa-list"></i> Add To WishList</button>
+			</form>
 
 			
 		</div>
 	</div>
+
+	<script>
+		// $("button").on("click", function(){
+		// 	$("img").clone()
+		// 	.addClass("zoom")
+		// 	.appendTo("body");
+		// setTimeout(function(){
+		// 	$(".zoom").remove();
+		// 	},1000);
+		// });
+	</script>
 		
 
 <?php }

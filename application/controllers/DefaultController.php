@@ -148,8 +148,7 @@ class DefaultController extends CI_Controller {
 					'userType' =>$row->userType
 
 				);
-				$this->session->set_userdata('logged_in', $sess_array);				
-				//$this->session->set_userdata('logged_in', $sess_array);
+				$this->session->set_userdata('logged_in', $sess_array);		
 			}
 			//return true -> we have a valid user
 			return true;

@@ -15,6 +15,11 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="<?php echo $jsbase."common.js"?>"></script>
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous">
+</script>
 
 </head>
 
@@ -56,13 +61,19 @@
 					      </li>
 			  			<?php } //end if that checks for user type?> 
 			  <?php }//end else ?>
-					  <li class="nav-item">
-			  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewBasket')?>"><i class="fa fa-shopping-basket"></i> View Basket</a>
-				      </li>
+					  
 			  <!-- End of navbar depending on login status -->
 
-			      
+			      <li class="nav-item">
+			  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewWishlist')?>"><i class="fa fa-list"></i> Wishlist</a>
+				      </li>
 			    </ul>
+			    <ul class="navbar-nav ml-auto">
+			    	<li class="nav-item">
+			  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewBasket')?>"><i class="fa fa-shopping-basket"></i> Basket</a>
+				      </li>
+			    </ul>
+
 			    <form class="form-inline my-2 my-lg-0" method="get" action="<?php echo site_url('ProductController/findProducts/');?>">
 			      <input class="form-control mr-sm-2" type="search" name="productSearch" placeholder="Search" aria-label="Search">
 			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
