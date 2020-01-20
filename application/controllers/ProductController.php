@@ -266,10 +266,16 @@ class ProductController extends CI_Controller {
     }
 
     public function viewWishlist(){
-    	//get wishlist items from db
-    	$data['view_data'] = $this->WishListModel->get_all_items($_SESSION['logged_in']['customerNumber']);
-    	//load view
-    	$this->load->view('wishlistView',$data);
+    	if(isset($_SESSION['logged_in'])){
+    		//get wishlist items from db
+	    	$data['view_data'] = $this->WishListModel->get_all_items($_SESSION['logged_in']['customerNumber']);
+	    	//load view
+	    	$this->load->view('wishlistView',$data);
+    	}else{
+    		$data['message'] = "Sorry you must be logged in to do that";
+    		$this->load->view('displayMessageView',$data);
+    	}
+    	
     }
 
 
@@ -313,6 +319,11 @@ class ProductController extends CI_Controller {
 		$aProduct['description'] = $this->input->post('description');
 		$aProduct['photo'] = $this->input->post('photo');
     	$this->WishListModel->InsertItem($aProduct);
+    }
+
+    public function deleteItemFromWishlist($produceCode){
+    	$this->WishListModel->deleteWishlistModel($produceCode, $_SESSION['logged_in']['customerNumber']);
+    	$this->viewWishlist();
     }
 }
 

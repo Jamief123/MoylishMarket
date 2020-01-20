@@ -28,6 +28,11 @@ class WishListModel extends CI_Model
 		return $query->result();
 	}
 
-
+	public function deleteWishlistModel($produceCode,$customerNumber)
+	{	
+		$this->db->where('produceCode', $produceCode);
+		$this->db->where('customerNumber', $customerNumber);
+		return $this->db->delete('wishlist');
+    }
 }
 ?>

@@ -7,6 +7,18 @@
 	border: 1px #ddd solid;
 	border-radius: 4px;
 }
+
+.wishlistItem{
+	margin-top:15px;
+	border: 1px #ddd solid;
+	border-radius: 4px;
+	box-shadow: 3px 3px 5px 6px #ccc;
+	padding: 5px;
+}
+.wishlistItem img{
+	border-radius: 4px;
+	box-shadow: 3px 3px 5px 6px #ccc;
+}
 .price{
 	font-weight: bold;
 }
@@ -20,7 +32,14 @@
 .img-thumbnail{
 	box-shadow: 3px 3px 5px 6px #ccc;
 }
-
+.wishlistItemLeft{
+	width: 40%;
+	float: left;
+}
+.wishlistItemRight{
+	width: 40%;
+	float: right;
+}
 .container{
 	margin-top: 25px;
 }
