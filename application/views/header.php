@@ -11,6 +11,7 @@
 <html><head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Moylish Market</title>
+<link href="https://img.icons8.com/dusk/64/000000/shopping-cart.png" rel="icon" type="image/x-icon" />
 <link href="<?php echo $cssbase . "style.css"?>" rel="stylesheet" type="text/css" media="all" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

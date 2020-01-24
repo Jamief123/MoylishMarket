@@ -314,11 +314,18 @@ class ProductController extends CI_Controller {
     }
 
     public function addToWishlist(){
-    	$aProduct['customerNumber'] = $_SESSION['logged_in']['customerNumber'];
-    	$aProduct['produceCode'] = $this->input->post('produceCode');
-		$aProduct['description'] = $this->input->post('description');
-		$aProduct['photo'] = $this->input->post('photo');
-    	$this->WishListModel->InsertItem($aProduct);
+    	if(isset($_SESSION['logged_in'])){
+    		$aProduct['customerNumber'] = $_SESSION['logged_in']['customerNumber'];
+	    	$aProduct['produceCode'] = $this->input->post('produceCode');
+			$aProduct['description'] = $this->input->post('description');
+			$aProduct['photo'] = $this->input->post('photo');
+	    	$this->WishListModel->InsertItem($aProduct);
+	    	$this->viewWishlist();
+    	}else{
+    		$data['message'] = "Sorry you must be logged in to do that";
+    		$this->load->view('displayMessageView',$data);
+    	}
+    	
     }
 
     public function deleteItemFromWishlist($produceCode){

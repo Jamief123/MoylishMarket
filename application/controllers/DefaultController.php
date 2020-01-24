@@ -15,27 +15,13 @@ class DefaultController extends CI_Controller {
 	}
 
 	public function index(){	
-		//check if the user is already logged in
-		if($this->session->userdata('logged_in')){
-			$config['base_url'] = site_url('DefaultController/index/');
-			$config['total_rows'] = $this->ProductModel->record_count();
-			$config['per_page'] = 20;
-			$this->pagination->initialize($config);
-			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
-			$data['category'] = $this->ProductModel->get_all_categories();
-			$this->load->view('index',$data);
-		}
-		else{
-			$config['base_url'] = site_url('DefaultController/index/');
-			$config['total_rows'] = $this->ProductModel->record_count();
-			$config['per_page'] = 20;
-			$this->pagination->initialize($config);
-			$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
-			$data['category'] = $this->ProductModel->get_all_categories();
-			$this->load->view('index',$data);
-		}
-			
-	}
+		$config['base_url'] = site_url('DefaultController/index/');
+		$config['total_rows'] = $this->ProductModel->record_count();
+		$config['per_page'] = 20;
+		$this->pagination->initialize($config);
+		$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
+		$data['category'] = $this->ProductModel->get_all_categories();
+		$this->load->view('index',$data);	}
 
 
 	public function Register(){

@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<option value="<?php echo $row->productLine ?>" ><?php echo $row->productLine ?></option>
 			<?php }?>
 		</select>
-		<p><input type="submit" name="submitCategory" value="Apply" class ="btn btn-warning" id="categoryApply" /></p>
+		<p><input type="submit" name="submitCategory" value="Filter" class ="btn btn-warning" id="categoryApply" /></p>
 	</form>
 </div>
 
