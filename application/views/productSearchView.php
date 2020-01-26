@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	$img_base = base_url()."assets/images/";
 ?>
 <div class="main">
-	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.jpg"?>" />	
+	<img class="img-fluid" style="width:100%" src="<?php echo $img_base . "site/logo.png"?>" />	
 </div>
 	<div class="row">
 		<?php foreach($view_data as $row){?>	
@@ -21,8 +21,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	        </a>
 	        <?php if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){	?>
         			<p>
-        				<a  class="btn btn-primary">Delete</a>
-					   <a  class="btn btn-primary">Edit</a>
+	    				<a onclick="return checkDelete()" class="btn btn-primary" href="<?php echo site_url('ProductController/discontinueProduct/'.$row->produceCode);?>">Discontinue</a>
+						<a class="btn btn-primary" href="<?php echo site_url('ProductController/editProduct/'.$row->produceCode);?>">Edit</a>
+						<a onclick="return checkDelete()" class="btn btn-primary" href="<?php echo site_url('ProductController/deleteProduct/'.$row->produceCode);?>">Delete</a>
 					</p>
 	            			
 	            <?php }?>

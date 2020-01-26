@@ -39,8 +39,13 @@ class ProductModel extends CI_Model
 	}
 	
 	public function deleteProductModel($produceCode)
-	{	$this->db->where('produceCode', $produceCode);
+	{	
+		$db_debug = $this->db->db_debug; //save setting
+
+		$this->db->db_debug = FALSE; 
+		$this->db->where('produceCode', $produceCode);
 		return $this->db->delete('products');
+		
     }
 
 	function updateProductModel($product,$produceCode)
@@ -61,13 +66,20 @@ class ProductModel extends CI_Model
     }
 
     public function insertProductModel($product)
-	{	$this->db->insert('products',$product);
+	{	
+		$db_debug = $this->db->db_debug; //save setting
+
+		$this->db->db_debug = FALSE; 
+
+		$this->db->insert('products',$product);
 		if ($this->db->affected_rows() ==1) {
 			return true;
 		}
 		else {
 			return false;
 		}
+
+		$this->db->db_debug = $db_debug;
 	}
 
 	public function discontinueProductModel($produceCode){

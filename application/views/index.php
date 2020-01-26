@@ -40,6 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    			<p>
 	    				<a onclick="return checkDelete()" class="btn btn-primary" href="<?php echo site_url('ProductController/discontinueProduct/'.$row->produceCode);?>">Discontinue</a>
 						<a class="btn btn-primary" href="<?php echo site_url('ProductController/editProduct/'.$row->produceCode);?>">Edit</a>
+						<a onclick="return checkDelete()" class="btn btn-primary" href="<?php echo site_url('ProductController/deleteProduct/'.$row->produceCode);?>">Delete</a>
 					</p>
 	            			
 	            <?php }?>

@@ -75,7 +75,7 @@ class ProductController extends CI_Controller {
 				$data['message']="The insert has been successful";
 			}
 			else {
-				$data['message']="Uh oh ... problem on insert";
+				$data['message']="Uh oh ... problem on insert. A product with that produce code may already exist.";
 			}
 			
 			//load the view to display the message
@@ -166,7 +166,7 @@ class ProductController extends CI_Controller {
 		if($deletedRows > 0)
 			$data['message'] = "$deletedRows product has been deleted";
 		else
-			$data['message'] = "There was an error deleting the product with a produce code of $produceCode";
+			$data['message'] = "Cannot delete a product that is in an order.";
 		$this->load->view('displayMessageView',$data);
 	}
 
