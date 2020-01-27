@@ -78,9 +78,6 @@ class DefaultController extends CI_Controller {
 				//load the view to display the message
 				$this->load->view('displayMessageView', $data);
 			}
-			
-			
-			
 			return;
 		}
 			$aCustomer['customerName'] = "";
