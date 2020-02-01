@@ -18,7 +18,10 @@
 				
 				echo "Enter Password";
 				echo form_password('password','',"class='form-control form-group'");
-				
+
+				echo form_checkbox('rememberMe',"class='form-control form-group'");
+				echo "Remember me";
+
 				echo form_submit("Login", "Login!","class='btn btn-warning form-control form-group'"); 
 			?>
    </div>

@@ -25,43 +25,58 @@ class OrderModel extends CI_Model
 		$this->db->db_debug = $db_debug; //set it back to original setting
 	}
 
-	public function discontinueProductModel($produceCode){
-		$this->db->set('discontinued', 1);
-		$this->db->where('produceCode',$produceCode);
-		return $this->db->update('products');
-	}
+	public function record_count(){
+    	return $this->db->count_all('orders');
+    }
 
-	public function isProductDiscontinued($produceCode){
-		$this->db->select("discontinued");
-		$this->db->from('products');
-		$this->db->where('produceCode',$produceCode);
+    public function drilldown($orderNumber)
+	{	$this->db->select("*"); 
+		$this->db->from('orders');
+		$this->db->where('orderNumber',$orderNumber);
 		$query = $this->db->get();
-		return $query->result_array();
-	}
+		return $query->result();
+    }
 
-	public function getPrice($produceCode){
-		$this->db->select("bulkSalePrice");
-		$this->db->from('products');
-		$this->db->where('produceCode',$produceCode);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function getQuantity($produceCode){
-		$this->db->select("quantityInStock");
-		$this->db->from('products');
-		$this->db->where('produceCode',$produceCode);
-		$query = $this->db->get();
-		return $query->result_array();
-	}
-
-	public function get_all_categories(){
-		$this->db->distinct();
-		$this->db->select("productLine"); 
-		$this->db->from('products');
+	public function get_all_orders($limit,$offset) 
+	{ //gets all products that are not discontinued
+		$this->db->limit($limit,$offset);
+		$this->db->select("*"); 
+		$this->db->from('orders');
 		$query = $this->db->get();
 		return $query->result();
 	}
 
+	public function get_user_orders($customerNumber) 
+	{ //gets all products that are not discontinued
+		$this->db->select("*"); 
+		$this->db->from('orders');
+		$this->db->where('customerNumber',$customerNumber);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function get_all_statuses(){
+		$this->db->distinct();
+		$this->db->select("status"); 
+		$this->db->from('orders');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function update_order_comment($comments, $orderNumber){
+		$this->db->set('comments',$comments);
+		$this->db->where('orderNumber',$orderNumber);
+		$this->db->update('orders');
+	}
+
+	public function get_latest_user_order($customerNumber){
+		$this->db->select('*');
+		$this->db->order_by("orderNumber", "desc");
+		$this->db->limit(1);
+		$this->db->from('orders');
+		$this->db->where('customerNumber',$customerNumber);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }
 ?>

@@ -9,19 +9,26 @@ class DefaultController extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->helper('html');
 		$this->load->helper('url');
+		$this->load->helper('cookie');
 		$this->load->library('form_validation');
 		$this->load->library('session');
 		$this->load->library('pagination');
 	}
 
 	public function index(){	
+
+		if($this->input->cookie('email') && $this->input->cookie('password')){
+			echo $this->UserModel->login($this->input->cookie('email'),$this->input->cookie('password'));
+		}
+
 		$config['base_url'] = site_url('DefaultController/index/');
 		$config['total_rows'] = $this->ProductModel->record_count();
 		$config['per_page'] = 20;
 		$this->pagination->initialize($config);
 		$data['product_info']=$this->ProductModel->get_all_products(20,$this->uri->segment(3));
 		$data['category'] = $this->ProductModel->get_all_categories();
-		$this->load->view('index',$data);	}
+		$this->load->view('index',$data);	
+	}
 
 
 	public function Register(){
@@ -105,11 +112,22 @@ class DefaultController extends CI_Controller {
 			$this->form_validation->set_rules('email', 'Email', 'trim|required');
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|callback_check_database');
 
+			$email = $this->input->post('email');
+			$password = MD5($this->input->post('password'));
+
+			if(isset($_POST['rememberMe']))
+				$rememberMe = true;
+
 			if($this->form_validation->run() == false) {
 				//validation failed -> display login form
 				$this->load->view('Login');
 			} else { 
 				//validation passed (inc a call to check_database() via a callback) -> display secret content
+				if(isset($rememberMe)){
+					 $this->input->set_cookie('email',$email,time()+(86400) );
+					 $this->input->set_cookie('password',$password,time()+(86400) );
+				
+				}
 				redirect('DefaultController/Index');
 			}
 		}
@@ -120,7 +138,7 @@ class DefaultController extends CI_Controller {
 		//only get here if form validation succeeded. now validate the users details against the DB
 		$email = $this->input->post('email');
 	   //query the DB
-	   $result = $this->UserModel->login($email, $password);
+	   $result = $this->UserModel->login($email, MD5($password));
 	   //if a valid user write their id & name to session data
 		if($result) {
 			$sess_array = array();

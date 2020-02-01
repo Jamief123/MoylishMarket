@@ -55,10 +55,11 @@
 					        </a>
 					        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					          <a class="dropdown-item" href="#">Manage Users</a>
+					          <a class="dropdown-item" href=" <?php echo site_url('OrderController/manageOrders') ?>">Manage Orders</a>
 					          <a class="dropdown-item" href="#">Manage Products</a>
-					          <div class="dropdown-divider"></div>
+					          <!-- <div class="dropdown-divider"></div>
 					          <a class="dropdown-item" href="#">Something else here</a>
-					        </div>
+					        </div> -->
 					      </li>
 			  			<?php } //end if that checks for user type?> 
 			  <?php }//end else ?>
@@ -66,7 +67,10 @@
 			  <!-- End of navbar depending on login status -->
 
 			      <li class="nav-item">
-			  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewWishlist')?>"><i class="fa fa-list"></i> Wishlist</a>
+		  		  		<a class="nav-link" href="<?php echo site_url('ProductController/viewWishlist')?>"><i class="fa fa-list"></i> Wishlist</a>
+			      </li>
+			      <li class="nav-item">
+			  		  		<a class="nav-link" href="<?php echo site_url('OrderController/manageOrders')?>"><i class="fa fa-money-bill"></i> Orders</a>
 				      </li>
 			    </ul>
 			    <ul class="navbar-nav ml-auto">
