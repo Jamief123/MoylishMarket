@@ -36,6 +36,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<input type="hidden" name="orderNumber" value="<?php echo $row->orderNumber ?>">
 				<button type="submit" class="btn btn-warning btn-sm" value="Edit Order">Edit Order</button>
 			</form>
+			<form class="form-inline" action="<?php echo site_url('OrderController/cancelOrder') ?>" method="POST">
+				<input type="hidden" name="orderNumber" value="<?php echo $row->orderNumber ?>">
+				<button type="submit" class="btn btn-warning btn-sm" value="Edit Order">Cancel Order</button>
+			</form>
 		</td>
 	 
 			

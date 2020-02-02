@@ -79,5 +79,25 @@ class OrderModel extends CI_Model
 		$query = $this->db->get();
 		return $query->result_array();
 	}
+
+	public function cancel_order($orderNumber){
+		$this->db->set('status','Cancelled');
+		$this->db->where('orderNumber',$orderNumber);
+		$this->db->update('orders');
+		if ($this->db->affected_rows() ==1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function get_user_order_number($orderNumber){
+		$this->db->select('customerNumber');
+		$this->db->from('orders');
+		$this->db->where('orderNumber', $orderNumber);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }
 ?>

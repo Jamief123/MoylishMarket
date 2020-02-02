@@ -77,24 +77,39 @@ class OrderController extends CI_Controller {
 	}
 
 	public function viewOrderDetails($orderNumber){
-		$view_data['order_info'] =$this->OrderDetailsModel->get_order_details($orderNumber);
-		$this->load->view('viewOrderDetails',$view_data);
+		if (isset($this->session->userdata['logged_in'])){
+			//get customer number for that order
+			$queryResult = $this->OrderModel->get_user_order_number($orderNumber);
+			$customerNumber = $queryResult[0]['customerNumber'];
+
+			//check if customer 'owns' that order
+			if($this->session->userdata['logged_in']['customerNumber'] == $customerNumber){
+			$view_data['order_info'] =$this->OrderDetailsModel->get_order_details($orderNumber);
+			$this->load->view('viewOrderDetails',$view_data);
+			}else{
+				$data['message'] = 'Sorry you do not have permission to view that order';
+				$this->load->view('displayMessageView',$data);
+			}
+		}else{
+			$data['message'] = 'Sorry you must be logged in to view orders';
+			$this->load->view('displayMessageView',$data);
+		}
+		
+		
 	}
 
-
-	// public function editOrder($orderNumber){
-	// 	if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){
-	// 		$data['edit_data']= $this->OrderModel->drilldown($orderNumber);
-	// 		$this->load->view('updateOrderView', $data);
-	// 	}else{
-	// 		$data['message'] = "You must be an admin to do that";
-	// 		$this->load->view('displayMessageView',$data);
-			
-	// 	}
-
-	// }
+	public function cancelOrder(){
+		$orderNumber = $_POST['orderNumber'];
+		if($this->OrderModel->cancel_order($orderNumber)){
+			$data['message'] = 'Order Cancelled';
+			$this->load->view('displayMessageView',$data);
+		}else{
+			$data['message'] = 'Unable to cancel order';
+			$this->load->view('displayMessageView',$data);
+		}
 
 
+	}
 
 
 }
