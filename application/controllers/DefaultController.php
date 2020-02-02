@@ -17,9 +17,8 @@ class DefaultController extends CI_Controller {
 
 	public function index(){	
 
-		if($this->input->cookie('email') && $this->input->cookie('password')){
-			echo $this->UserModel->login($this->input->cookie('email'),$this->input->cookie('password'));
-		}
+		if($this->input->cookie('email') && $this->input->cookie('password'))
+			$this->UserModel->login($this->input->cookie('email'),$this->input->cookie('password'));
 
 		$config['base_url'] = site_url('DefaultController/index/');
 		$config['total_rows'] = $this->ProductModel->record_count();

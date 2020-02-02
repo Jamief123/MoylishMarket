@@ -25,6 +25,14 @@ class OrderDetailsModel extends CI_Model
 		$this->db->db_debug = $db_debug; //set it back to original setting
 	}
 
+	public function get_order_details($orderNumber){
+		$this->db->select("*"); 
+		$this->db->from('orderdetails');
+		$this->db->where('orderNumber',$orderNumber);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	
 }
 ?>

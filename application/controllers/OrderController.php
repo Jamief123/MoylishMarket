@@ -49,19 +49,23 @@ class OrderController extends CI_Controller {
 	}
 
 	public function manageOrders(){
-		if(isset($this->session->userdata['logged_in']['userType']) &&  ($this->session->userdata['logged_in']['userType'] == 2)){
-			$config['base_url'] = site_url('OrderController/manageOrders/');
-			$config['total_rows'] = $this->OrderModel->record_count();
-			$config['per_page'] = 20;
-			$this->pagination->initialize($config);
-			$data['order_info']=$this->OrderModel->get_all_orders(20,$this->uri->segment(3));
-			$data['status'] = $this->OrderModel->get_all_statuses();
-			$this->load->view('orderView',$data);	
+		if(isset($this->session->userdata['logged_in']['userType'])){
+			if(($this->session->userdata['logged_in']['userType'] == 2)){
+				$config['base_url'] = site_url('OrderController/manageOrders/');
+				$config['total_rows'] = $this->OrderModel->record_count();
+				$config['per_page'] = 20;
+				$this->pagination->initialize($config);
+				$data['order_info']=$this->OrderModel->get_all_orders(20,$this->uri->segment(3));
+				$data['status'] = $this->OrderModel->get_all_statuses();
+				$this->load->view('orderView',$data);	
+			}else{
+				$customerNumber = $this->session->userdata['logged_in']['customerNumber'];
+				$data['order_info']=$this->OrderModel->get_user_orders($customerNumber);
+				$this->load->view('userOrderView',$data);
+			}
 		}else{
-			$customerNumber = $this->session->userdata['logged_in']['customerNumber'];
-			$data['order_info']=$this->OrderModel->get_user_orders($customerNumber);
-			$this->load->view('userOrderView',$data);
-			
+			$data['message'] = 'Sorry, you must be logged in to view orders';
+			$this->load->view('displayMessageView',$data);
 		}
 	}
 
@@ -70,6 +74,11 @@ class OrderController extends CI_Controller {
 		$orderNumber =$_POST['orderNumber'];
 		$this->OrderModel->update_order_comment($comments, $orderNumber);
 		$this->manageOrders();
+	}
+
+	public function viewOrderDetails($orderNumber){
+		$view_data['order_info'] =$this->OrderDetailsModel->get_order_details($orderNumber);
+		$this->load->view('viewOrderDetails',$view_data);
 	}
 
 

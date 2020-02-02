@@ -51,6 +51,7 @@ class OrderModel extends CI_Model
 		$this->db->select("*"); 
 		$this->db->from('orders');
 		$this->db->where('customerNumber',$customerNumber);
+		$this->db->order_by("orderNumber", "desc");
 		$query = $this->db->get();
 		return $query->result();
 	}

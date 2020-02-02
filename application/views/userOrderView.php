@@ -22,7 +22,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<?php foreach($order_info as $row){ ?>
 	<tr>
-		<td> <?php echo $row->orderNumber ?> </td>
+		<td> 
+			<?php echo $row->orderNumber ?> 
+			<a class ="btn btn-warning btn-sm" href=" <?php echo site_url('OrderController/viewOrderDetails/'.$row->orderNumber); ?>">View Order</a>
+		</td>
 		<td> <?php echo $row->orderDate ?> </td>
 		<td> <?php echo $row->requiredDate ?> </td>
 		<td> <?php echo $row->shippedDate ?> </td>
