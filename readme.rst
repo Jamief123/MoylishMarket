@@ -8,6 +8,8 @@ Regular users can add items to a cart or a wishlist and make purchases and also 
 
 Users can register on the website.
 
+Utilizes bootstrap to have a nice, simple, and consistent look across all pages.
+
 ###################
 What is CodeIgniter
 ###################
