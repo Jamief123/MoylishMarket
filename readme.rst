@@ -1,8 +1,11 @@
 A college project. It is a website for a fictional online shop called moylish market.
 
 It is a CRUD application written in PHP with the CodeIgniter framework.
+
 There are different user types. The admin can add/edit/update/delete products and view orders.
+
 Regular users can add items to a cart or a wishlist and make purchases and also view their own orders.
+
 Users can register on the website.
 
 ###################
