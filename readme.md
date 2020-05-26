@@ -12,9 +12,23 @@ Utilizes bootstrap to have a nice, simple, and consistent look across all pages.
 
 Some sample images
 
+**Front Page**
+![](images/main.png)
+
 **Log in Screen**
 
-![main screen](https://github.com/Jamief123/MoylishMarket/tree/master/images/login.png?raw=true)
+![login screen](images/login.png)
+
+**Viewing an individual product**
+![](images/order.png)
+
+**User viewing personal orders**
+![](images/orders.png)
+
+**Admin viewing all orders**
+![](images/adminOrders.png)
+
+
 
 ###################
 What is CodeIgniter
