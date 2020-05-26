@@ -14,7 +14,7 @@ Some sample images
 
 **Log in Screen**
 
-<img src="MoylishMarket/images/login.png"/>
+![main screen](https://github.com/Jamief123/MoylishMarket/tree/master/images/login.png?raw=true)
 
 ###################
 What is CodeIgniter
