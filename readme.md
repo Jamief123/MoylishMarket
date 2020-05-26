@@ -10,6 +10,12 @@ Users can register on the website.
 
 Utilizes bootstrap to have a nice, simple, and consistent look across all pages.
 
+Some sample images
+
+**Log in Screen**
+
+![main screen](https://github.com/Jamief123/MoylishMarket/tree/master/images/login.png?raw=true)
+
 ###################
 What is CodeIgniter
 ###################
